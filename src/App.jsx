@@ -227,11 +227,13 @@ function App() {
             </div>
           </div> */}
 
-          <div className="flex justify-between text-sm mb-2">
-            <span className="text-mainText">대출 비중</span>
-            <span className="text-mainText">
-              {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
-            </span>
+          <div>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="text-mainText">대출 비중</span>
+              <span className="text-mainText">
+                {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
+              </span>
+            </div>
           </div>
 
           {/* ⚙️ 상세설정 토글 버튼 */}
