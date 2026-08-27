@@ -214,18 +214,14 @@ function App() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <label className="text-xs font-semibold text-stone-600">
-                자기자본
-              </label>
+          <div>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="text-mainText">자기자본</span>
+              <span className="font-bold mainText">
+                {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
+              </span>
             </div>
-            <div className="flex flex-col space-y-1.5">
-              <label className="text-xs font-semibold text-stone-600">
-                {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}원
-              </label>
-            </div>
-          </div>
+          </div
 
           {/* ⚙️ 상세설정 토글 버튼 */}
           <div className="pt-2">
