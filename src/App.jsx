@@ -221,7 +221,7 @@ function App() {
                 {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
               </span>
             </div>
-          </div
+          </div>
 
           {/* ⚙️ 상세설정 토글 버튼 */}
           <div className="pt-2">
