@@ -199,7 +199,7 @@ function App() {
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-mainText">대출 비중</span>
-              <span className="font-bold text-mainText">
+              <span className="font-bold mainText">
                 {loanRatio}%
               </span>
             </div>
@@ -214,12 +214,16 @@ function App() {
             />
           </div>
 
-          <div>
-            <div className="flex justify-between text-sm mb-2">
-              <span className="text-mainText">자기자본</span>
-              <span className="font-bold text-mainText">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <label className="text-sm font-semibold text-stone-600">
+                자기자본
+              </label>
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <label className="text-sm font-semibold text-stone-600">
                 {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
-              </span>
+              </label>
             </div>
           </div>
 
