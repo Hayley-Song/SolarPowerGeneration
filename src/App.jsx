@@ -11,6 +11,7 @@ function App() {
   const [recWeight, setRecWeight] = useState(1.2); // REC 가중치 (기본 1.2)
   const [SMP, setSMP] = useState(120);
   const [REC, setREC] = useState(72);
+  const [loanRatio, setLoanRatio] = useState(85);
 
   // const [loanA, setLoanA] = useState(0);
   const [interestRateA, setInterestRateA] = useState(3.75);
@@ -21,7 +22,7 @@ function App() {
   const [loanPeriodB, setLoanPeriodB] = useState(0);
 
   const initialExpense = Cal.estimateCost(solarCapacity, recWeight) + landCost;
-  let loanA = initialExpense * 0.85;
+  let loanA = initialExpense * (loanRatio / 100);
 
   // const [viewMode, setViewMode] = useState('chart');
   const [showDetail, setShowDetail] = useState('닫기');
@@ -194,6 +195,37 @@ function App() {
               <option value="1년거치19년분할">1년 거치 19년 분할상환</option>
             </select>
           </div>
+          
+          <div>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="text-mainText">대출 비중</span>
+              <span className="font-bold mainText">
+                {loanRatio}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              value={loanRatio}
+              onChange={(e) => setLoanRatio(Number(e.target.value))}
+              className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <label className="text-xs font-semibold text-stone-600">
+                자기자본
+              </label>
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <label className="text-xs font-semibold text-stone-600">
+                {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}원
+              </label>
+            </div>
+          </div>
 
           {/* ⚙️ 상세설정 토글 버튼 */}
           <div className="pt-2">
@@ -227,7 +259,7 @@ function App() {
                 <input
                   type="range"
                   min="0"
-                  max="100000000"
+                  max="200000000"
                   step="5000000"
                   value={loanB}
                   onChange={(e) => setLoanB(Number(e.target.value))}
