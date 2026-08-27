@@ -217,7 +217,7 @@ function App() {
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-mainText">자기자본</span>
-              <span className="font-bold mainText">
+              <span className="font-bold text-mainText">
                 {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
               </span>
             </div>
