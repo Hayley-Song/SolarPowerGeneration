@@ -199,7 +199,7 @@ function App() {
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-mainText">대출 비중</span>
-              <span className="font-bold mainText">
+              <span className="font-bold text-mainText">
                 {loanRatio}%
               </span>
             </div>
