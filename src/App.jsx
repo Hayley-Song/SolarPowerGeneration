@@ -198,7 +198,7 @@ function App() {
           
           <div>
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-mainText">대출 비중</span>
+              <span className="text-mainText">햇빛소득 대출 비중</span>
               <span className="font-bold mainText">
                 {loanRatio}%
               </span>
@@ -206,26 +206,13 @@ function App() {
             <input
               type="range"
               min="0"
-              max="100"
+              max="85"
               step="5"
               value={loanRatio}
               onChange={(e) => setLoanRatio(Number(e.target.value))}
               className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
             />
           </div>
-
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <label className="text-sm font-semibold text-stone-600">
-                자기자본
-              </label>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <label className="text-sm font-semibold text-stone-600">
-                {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
-              </label>
-            </div>
-          </div> */}
 
           <div>
             <div className="flex justify-between text-sm mb-2">
