@@ -36,7 +36,6 @@ export default function InputView({ data }) {
   } = data;
 
   return (
-    {/* 왼쪽: 슬라이더 컨트롤러 */}
     <section className="bg-cardBg p-6 rounded-2xl border shadow-2xl flex flex-col gap-6">
       <h2 className="text-lg font-bold mainText border-b pb-3 mb-2">
         변수 설정
