@@ -176,7 +176,7 @@ function CumulativeView({ data }) {
       </div>
 
       {/* 우측 상세 수익 데이터 패널 (손익계산서 형태) */}
-      <selectedYearWindow data={{ selectedYear, setSelectedYear, selectedYearData }} />
+      <selectedYearWindow data={ selectedYear, setSelectedYear, selectedYearData } />
     </div>
   );
 }
