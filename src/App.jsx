@@ -29,6 +29,7 @@ function App() {
   const [showAdditional, setShowAdditional] = useState('닫기');
 
   const inputProps = {
+    initialExpense,
     solarCapacity,
     landCost,
     daylightHours,
