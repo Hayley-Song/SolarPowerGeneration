@@ -174,14 +174,10 @@ function CumulativeView({ data }) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-
-      {/* 우측 상세 수익 데이터 패널 (손익계산서 형태) */}
-      inputProps = {
-        selectedYear,
+      <selectedYearWindow data={ selectedYear,
         setSelectedYear,
         selectedYearData,
-      };
-      <selectedYearWindow data={ inputProps } />
+      } />
     </div>
   );
 }
