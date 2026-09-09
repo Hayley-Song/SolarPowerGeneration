@@ -3,6 +3,7 @@ import * as Cal from '../utils/calculators.js';
 
 export default function InputView({ data }) {
   const {
+    initialExpense,
     solarCapacity,
     landCost,
     daylightHours,
