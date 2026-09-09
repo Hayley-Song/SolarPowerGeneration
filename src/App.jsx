@@ -103,7 +103,7 @@ function App() {
 
       {/* 대시보드 메인 레이아웃 */}
       <main className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <InputView data={{ inputProps }} />
+        <InputView data={ inputProps } />
         <ChartView data={{ chartData, initialExpense, cumulativeProfit }} />
       </main>
     </div>
