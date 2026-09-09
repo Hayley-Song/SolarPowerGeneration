@@ -341,4 +341,5 @@ export default function InputView({ data }) {
         </div>
       )}
     </section>
+  )
 }
