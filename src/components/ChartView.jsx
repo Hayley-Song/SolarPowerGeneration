@@ -174,10 +174,11 @@ function CumulativeView({ data }) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      {selectedYear && (
-        <selectedYearWindow data={ selectedYear, setSelectedYear, selectedYearData} />
-      )}
+
     </div>
+    {selectedYear && (
+      <selectedYearWindow data={ selectedYear, setSelectedYear, selectedYearData} />
+    )}
   );
 }
 
@@ -455,6 +456,7 @@ function selectedYearWindow({ data }) {
     selectedYearData,
   } = data;
 
+  console.log('selectedYearWindow 호출됨')
   <div className="w-full lg:w-1/2 bg-mainBg p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300">
     <div>
       {/* 헤더 영역 */}
