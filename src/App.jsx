@@ -92,7 +92,7 @@ function App() {
     <div className="min-h-screen bg-mainBg text-mainText p-6 md:p-12">
       {/* 타이틀 및 헤더 */}
       <header className="max-w-6xl mx-auto mb-10 text-center">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-mutedText to-primary mb-2">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-primary mb-2">
           햇빛소득마을 수익 시뮬레이터
         </h1>
         <p className="mainText text-sm md:text-base">
