@@ -28,7 +28,7 @@ export default function ChartView({ data }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-primary p-5 rounded-2xl border">
           <p className="text-xs mainText uppercase tracking-wider mb-1">
-            소요자금
+            초기투자비용
           </p>
           <p className="text-2xl font-black text-mainText">
             {formatKoreanWon(initialExpense)}
@@ -36,7 +36,7 @@ export default function ChartView({ data }) {
         </div>
         <div className="bg-primary p-5 rounded-2xl border">
           <p className="text-xs mainText uppercase tracking-wider mb-1">
-            예상 투자금 회수 기간
+            예상 투자비용 회수 기간
           </p>
           <p className="text-2xl font-black text-mainText">{yearResult}</p>
         </div>
