@@ -175,7 +175,7 @@ function CumulativeView({ data }) {
         </ResponsiveContainer>
       </div>
       {selectedYear && (
-        <selectedYearWindow data={ selectedYear, setSelectedYear, selectedYearData } />
+        <selectedYearWindow data={{ selectedYear, setSelectedYear, selectedYearData }} />
       )}
     </div>
   );
