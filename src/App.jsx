@@ -7,7 +7,7 @@ function App() {
   const [solarCapacity, setSolarCapacity] = useState(300); // 태양광 발전 설비 용량 (기본 300kW)
   const [landCost, setLandCost] = useState(0); // 부지매입비 (기본 0원)
   const [daylightHours, setDaylightHours] = useState(3.5); // 일조 시간 (기본 3.5시간)
-  // const [installType, setInstallType] = useState('건축물'); // 설치 유형 (기본 건축물)
+  const [installType, setInstallType] = useState('일반부지'); // 설치 유형 (기본 일반부지)
   const [recWeight, setRecWeight] = useState(1.2); // REC 가중치 (기본 1.2)
   const [SMP, setSMP] = useState(120);
   const [REC, setREC] = useState(72);
@@ -25,7 +25,7 @@ function App() {
   let loanA = initialExpense * (loanRatio / 100);
 
   // const [viewMode, setViewMode] = useState('chart');
-  const [showDetail, setShowDetail] = useState('닫기');
+  const [showAdditional, setShowAdditional] = useState('닫기');
 
   let data = Cal.mergedData(
     Cal.calculateRevenue(solarCapacity, daylightHours, SMP, REC, recWeight),
@@ -58,7 +58,7 @@ function App() {
     <div className="min-h-screen bg-mainBg text-mainText p-6 md:p-12">
       {/* 타이틀 및 헤더 */}
       <header className="max-w-6xl mx-auto mb-10 text-center">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-mainText to-primary mb-2">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-mutedText to-primary mb-2">
           햇빛소득마을 수익 시뮬레이터
         </h1>
         <p className="mainText text-sm md:text-base">
@@ -147,38 +147,77 @@ function App() {
               className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
             />
           </div>
-
-          {/* 지역에 따른 일조시간 */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-mainText font-medium">지역</label>
-            <select
-              value={daylightHours}
-              onChange={(e) => setDaylightHours(Number(e.target.value))}
-              className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
-            >
-              <option value="3.54">서울경기</option>
-              <option value="3.57">충청북도</option>
-              <option value="3.69">충청남도</option>
-              <option value="3.54">강원도</option>
-              <option value="3.69">전라북도</option>
-              <option value="3.79">전라남도</option>
-              <option value="3.65">경상북도</option>
-              <option value="3.75">경상남도</option>
-              <option value="3.54">제주도</option>
-            </select>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-mainText font-medium">지역</label>
+              <select
+                value={daylightHours}
+                onChange={(e) => setDaylightHours(Number(e.target.value))}
+                className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
+              >
+                <option value="3.54">서울경기</option>
+                <option value="3.57">충청북도</option>
+                <option value="3.69">충청남도</option>
+                <option value="3.54">강원도</option>
+                <option value="3.69">전라북도</option>
+                <option value="3.79">전라남도</option>
+                <option value="3.65">경상북도</option>
+                <option value="3.75">경상남도</option>
+                <option value="3.54">제주도</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-mainText font-medium">
+                일조량
+              </label>
+              <div className="relative">
+                <input
+                  type="number"
+                  step="0.1"
+                  min="2.0"
+                  max="5.0"
+                  value={daylightHours}
+                  onChange={(e) => setDaylightHours(Number(e.target.value))}
+                  title="일조량 반영을 위해 사용되는 옵션입니다."
+                  className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
+                  placeholder={daylightHours}
+                />
+              </div>
+            </div>
           </div>
-
-          {/* 설치유형 */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-mainText font-medium">분류</label>
-            <select
-              value={recWeight}
-              onChange={(e) => setRecWeight(Number(e.target.value))}
-              className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
-            >
-              <option value="1.2">일반부지</option>
-              <option value="1.5">건축물</option>
-            </select>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-mainText font-medium">분류</label>
+              <select
+                value={installType}
+                onChange={(e) => {
+                  setInstallType(e.target.value);
+                  setRecWeight(e.target.value === '건축물' ? 1.5 : 1.2);
+                }}
+                title="REC 가중치 반영을 위해 사용되는 옵션입니다."
+                className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
+              >
+                <option value="일반부지">일반부지</option>
+                <option value="건축물">건축물</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-mainText font-medium">
+                REC 가중치
+              </label>
+              <div className="relative">
+                <input
+                  type="number"
+                  step="0.1"
+                  min="0.5"
+                  max="2"
+                  value={recWeight}
+                  onChange={(e) => setRecWeight(Number(e.target.value))}
+                  className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
+                  placeholder={installType === '건축물' ? 1.5 : 1.2}
+                />
+              </div>
+            </div>
           </div>
 
           {/* 상환 방식 */}
@@ -195,13 +234,11 @@ function App() {
               <option value="1년거치19년분할">1년 거치 19년 분할상환</option>
             </select>
           </div>
-          
+
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-mainText">햇빛소득 대출 비중</span>
-              <span className="font-bold mainText">
-                {loanRatio}%
-              </span>
+              <span className="font-bold mainText">{loanRatio}%</span>
             </div>
             <input
               type="range"
@@ -216,9 +253,11 @@ function App() {
 
           <div>
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-mainText">대출 비중</span>
-              <span className="text-mainText">
-                {Cal.formatKoreanWon(initialExpense * (100 - loanRatio) / 100 - loanB)}
+              <span className="text-mainText">자기 자본</span>
+              <span className="text-mainText font-bold">
+                {Cal.formatKoreanWon(
+                  (initialExpense * (100 - loanRatio)) / 100 - loanB,
+                )}
               </span>
             </div>
           </div>
@@ -227,47 +266,45 @@ function App() {
           <div className="pt-2">
             <button
               type="button"
-              onClick={() => setShowDetail(!showDetail)} // 클릭할 때마다 true <-> false 반전
-              className="w-full py-2 px-4 bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium text-xs rounded-xl flex items-center justify-between transition-colors"
+              onClick={() => setShowAdditional(!showAdditional)} // 클릭할 때마다 true <-> false 반전
+              className="w-full py-2 px-4 bg-mainBg hover:bg-stone-200 text-mainText font-medium text-xs rounded-xl flex items-center justify-between transition-colors"
             >
-              <span className="flex items-center gap-1.5">
-                <span>⚙️</span> 추가입력 {showDetail ? '닫기' : '열기'}
-              </span>
-              <span>{showDetail ? '▲' : '▼'}</span>
+              <span className="flex items-center gap-1.5">대출 추가 입력</span>
+              <span>{showAdditional ? '▲' : '▼'}</span>
             </button>
           </div>
 
-          {/* 🔓 showDetail 상태가 true일 때만 열리는 상세설정 영역 */}
-          {showDetail && (
-            <div className="p-4 bg-amber-50/50 border border-amber-200/60 rounded-xl space-y-4 animate-fadeIn">
-              <h4 className="text-xs font-bold text-amber-900 border-b border-amber-200/50 pb-2">
+          {/* 🔓 showAdditional 상태가 true일 때만 열리는 상세설정 영역 */}
+          {showAdditional && (
+            <div className="p-4 bg-cardBg border border-outline-none rounded-xl space-y-4 animate-fadeIn">
+              <h4 className="text-xs font-bold text-mainText border-b border-outline-none pb-2">
                 상환 정보 추가 입력
               </h4>
 
               {/* 대출금액 */}
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-stone-600">
+                <div className="flex justify-between text-xs text-mainText">
                   <span>대출금액</span>
-                  <span className="font-semibold text-amber-800">
+                  <span className="font-semibold text-mainText">
                     {Cal.formatKoreanWon(loanB)}
                   </span>
                 </div>
                 <input
                   type="range"
                   min="0"
-                  max="200000000"
+                  max={(initialExpense * (100 - loanRatio)) / 100}
                   step="5000000"
                   value={loanB}
                   onChange={(e) => setLoanB(Number(e.target.value))}
-                  className="w-full accent-primary"
+                  className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
 
               {/* 대출기간 */}
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-stone-600">
+                <div className="flex justify-between text-xs text-mainText">
                   <span>대출기간(년)</span>
-                  <span className="font-semibold text-amber-800">
+                  <span className="font-semibold text-mainText">
                     {loanPeriodB}년
                   </span>
                 </div>
@@ -278,15 +315,15 @@ function App() {
                   step="1"
                   value={loanPeriodB}
                   onChange={(e) => setLoanPeriodB(Number(e.target.value))}
-                  className="w-full accent-primary"
+                  className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
 
               {/* 대출금리 */}
               <div className="space-y-1">
-                <div className="flex justify-between text-xs text-stone-600">
+                <div className="flex justify-between text-xs text-mainText">
                   <span>대출금리[%]</span>
-                  <span className="font-semibold text-amber-800">
+                  <span className="font-semibold text-mainText">
                     {interestRateB}%
                   </span>
                 </div>
@@ -297,7 +334,7 @@ function App() {
                   step="0.1"
                   value={interestRateB}
                   onChange={(e) => setInterestRateB(Number(e.target.value))}
-                  className="w-full accent-primary"
+                  className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
 
