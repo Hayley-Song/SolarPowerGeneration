@@ -82,7 +82,7 @@ export default function InputView({ data }) {
         <div className="flex justify-between text-sm mb-2">
           <span className="text-mainText">설비 용량</span>
           <span className="font-bold mainText">
-            {solarCapacity.toLocaleString()}kW
+            {(solarCapacity ?? 0).toLocaleString()}kW
           </span>
         </div>
         <input
@@ -101,7 +101,7 @@ export default function InputView({ data }) {
         <div className="flex justify-between text-sm mb-2">
           <span className="text-mainText">부지매입비</span>
           <span className="font-bold mainText">
-            {(landCost / 10000).toLocaleString()}만 원
+            {((landCost / 10000) ?? 0).toLocaleString()}만 원
           </span>
         </div>
         <input
