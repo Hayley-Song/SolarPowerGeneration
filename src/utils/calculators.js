@@ -181,23 +181,72 @@ export function calculateRevenue(
   data.push({
     year: '시작',
     generationRevenue: 0,
-    maintenanceCost: 0,
+    maintenanceCostA: 0,
+    maintenanceCostB: 0,
+    maintenanceCostC: 0,
+    maintenanceCostD: 0,
   });
 
   const expenseCalculation = (capacity) => {
     return (20.49 * capacity + 710.22) * 1000;
   };
 
+  // 전기안전관리비
+  function expenseA(capacity) {
+    const RANGES = [
+      { min: 1501, value: 2032400 },
+      { min: 1251, value: 1487600 },
+      { min: 1001, value: 1236400 },
+      { min: 901, value: 945200 },
+      { min: 801, value: 814200 },
+      { min: 701, value: 656300 },
+      { min: 601, value: 542900 },
+      { min: 501, value: 421900 },
+      { min: 401, value: 319200 },
+      { min: 301, value: 216100 },
+      { min: 201, value: 141500 },
+      { min: 101, value: 123700 },
+      { min: 51, value: 108500 },
+      { min: 0, value: 94900 },
+    ];
+    // 큰 값부터 비교하여 조건에 맞는 첫 번째 구간의 값을 반환
+    const target = RANGES.find((range) => capacity >= range.min);
+    return target ? target.value * 12 : 0; // 예외 처리(기본값)
+  }
+  // 보험료
+  const expenseB = (capacity, tp) => {
+    return parseInt(estimateCost(capacity, tp) * 0.005);
+  };
+  // 유지관리 비용
+  const expenseC = (capacity) => {
+    return capacity * 407 + 326300;
+  };
+  // 인버터 교체비용
+  const expenseD = (capacity, tp, year) => {
+    if (year % 10 === 0) {
+      return parseInt(estimateCost(capacity, tp) * 0.07);
+    }
+    return 0;
+  };
+
   for (let year = 1; year <= 20; year++) {
+    const A = expenseA(solarCapacity);
+    const B = expenseB(solarCapacity, recWeight);
+    const C = expenseC(solarCapacity);
+    const D = expenseD(solarCapacity, recWeight, year);
+
     data.push({
       year: `${year}년차`,
       generationRevenue: Math.round(currentYearlyRevenue),
-      maintenanceCost: Math.round(expenseCalculation(solarCapacity)),
+      maintenanceCostA: A,
+      maintenanceCostB: B,
+      maintenanceCostC: C,
+      maintenanceCostD: D,
+      maintenanceCost: A + B + C + D,
     });
     currentYearlyRevenue =
       currentYearlyRevenue * (1 - degradationRatio[year - 1]);
   }
-
   return data;
 }
 
