@@ -27,6 +27,24 @@ function App() {
   // const [viewMode, setViewMode] = useState('chart');
   const [showAdditional, setShowAdditional] = useState('닫기');
 
+  const inputProps = {
+    solarCapacity,
+    landCost,
+    daylightHours,
+    installType,
+    recWeight,
+    SMP,
+    REC,
+    loanRatio,
+    interestRateA,
+    repaymentPlanA,
+    loanB,
+    interestRateB,
+    repaymentPlanB,
+    loanPeriodB,
+    showAdditional,
+  };
+
   let data = Cal.mergedData(
     Cal.calculateRevenue(solarCapacity, daylightHours, SMP, REC, recWeight),
     Cal.calculateLoanA(loanA, interestRateA, repaymentPlanA),
