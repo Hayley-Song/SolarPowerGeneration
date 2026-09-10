@@ -175,7 +175,7 @@ function CumulativeView({ data }) {
         </ResponsiveContainer>
       </div>
       {selectedYear && (
-        <selectedYearWindow data={{ selectedYear, setSelectedYear, selectedYearData }} />
+        <SelectedYearWindow data={{ selectedYear, setSelectedYear, selectedYearData }} />
       )}
     </div>
   );
@@ -448,12 +448,8 @@ const CustomTooltip = ({ active, payload, label, initialExpense }) => {
   return null;
 };
 
-function selectedYearWindow({ data }) {
-  const {
-    selectedYear,
-    setSelectedYear,
-    selectedYearData,
-  } = data;
+function SelectedYearWindow({ data }) {
+  const { selectedYear, setSelectedYear, selectedYearData } = data;
 
   console.log('selectedYearWindow 호출됨');
   return (
