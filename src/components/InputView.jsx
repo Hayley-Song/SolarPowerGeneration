@@ -6,6 +6,7 @@ export default function InputView({ data }) {
     initialExpense,
     solarCapacity,
     landCost,
+    region,
     daylightHours,
     installType,
     recWeight,
@@ -21,6 +22,7 @@ export default function InputView({ data }) {
     showAdditional,
     setSolarCapacity,
     setLandCost,
+    setRegion,
     setDaylightHours,
     setInstallType,
     setRecWeight,
@@ -119,19 +121,23 @@ export default function InputView({ data }) {
         <div className="flex flex-col gap-2">
           <label className="text-sm text-mainText font-medium">지역</label>
           <select
-            value={daylightHours}
-            onChange={(e) => setDaylightHours(Number(e.target.value))}
+            value={region}
+            onChange={(e) => {
+              setRegion(e.target.value);
+              setDaylightHours(e.target.value == '서울경기' ? 3.5 : 3.5);
+            }}
+            title="일조량 반영을 위해 사용되는 옵션입니다."
             className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
           >
-            <option value="3.54">서울경기</option>
-            <option value="3.57">충청북도</option>
-            <option value="3.69">충청남도</option>
-            <option value="3.54">강원도</option>
-            <option value="3.69">전라북도</option>
-            <option value="3.79">전라남도</option>
-            <option value="3.65">경상북도</option>
-            <option value="3.75">경상남도</option>
-            <option value="3.54">제주도</option>
+            <option value="서울경기">서울경기</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="강원도">강원도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="제주도">제주도</option>
           </select>
         </div>
         <div className="flex flex-col gap-2">
@@ -146,7 +152,6 @@ export default function InputView({ data }) {
               max="5.0"
               value={daylightHours}
               onChange={(e) => setDaylightHours(Number(e.target.value))}
-              title="일조량 반영을 위해 사용되는 옵션입니다."
               className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
               placeholder={daylightHours}
             />
