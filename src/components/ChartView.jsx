@@ -319,7 +319,7 @@ function SelectedYearWindow({ data }) {
   const { selectedYear, setSelectedYear, selectedYearData } = data;
 
   return (
-    <div className="w-full lg:w-1/2 bg-#fff p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300 select-none [&_*]:outline-none">
+    <div className="w-full lg:w-1/2 bg-#fff p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300">
       <div>
         {/* 헤더 영역 */}
         <div className="flex justify-between items-center mb-4 border-b border-slate-700 pb-3">
@@ -336,7 +336,7 @@ function SelectedYearWindow({ data }) {
         </div>
   
         {/* 손익계산서 테이블 */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto select-none [&_*]:outline-none">
           <table className="w-full text-sm text-left text-textMain">
             <tbody className="text-textMain">
               <tr className="hover:bg-slate-800/20">
