@@ -319,7 +319,7 @@ function SelectedYearWindow({ data }) {
   const { selectedYear, setSelectedYear, selectedYearData } = data;
 
   return (
-    <div className="w-full lg:w-1/2 bg-mainBg p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300">
+    <div className="w-full lg:w-1/2 bg-mainBg p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300 select-none [&_*]:outline-none">
       <div>
         {/* 헤더 영역 */}
         <div className="flex justify-between items-center mb-4 border-b border-slate-700 pb-3">
