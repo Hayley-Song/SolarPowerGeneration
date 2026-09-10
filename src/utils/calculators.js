@@ -257,7 +257,7 @@ export function estimateCost(capacity, type) {
   let a1, a2, b1, b2;
   let y1, y2;
 
-  if (type == 1.5) {
+  if (type == '건축물') {
     a1 = 0.847;
     b1 = 7.712;
     a2 = 1.005;
