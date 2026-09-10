@@ -92,7 +92,7 @@ function CumulativeView({ data }) {
     <div className="flex gap-4 w-full items-start">
       {/* 메인 차트 영역 (min-w-0 추가로 ResponsiveContainer 반응형 동작 보장) */}
       <div
-        className={`bg-mainBg p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
+        className={`bg-#fff p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
           selectedYear ? 'w-full lg:w-2/3' : 'w-full'
         }`}
       >
@@ -192,7 +192,7 @@ function YearlyView({ data }) {
     <div className="flex gap-4 w-full items-start">
       {/* 메인 차트 영역 (min-w-0 추가로 ResponsiveContainer 반응형 동작 보장) */}
       <div
-        className={`bg-mainBg p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
+        className={`bg-#fff p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
           selectedYear ? 'w-full lg:w-2/3' : 'w-full'
         }`}
       >
@@ -319,7 +319,7 @@ function SelectedYearWindow({ data }) {
   const { selectedYear, setSelectedYear, selectedYearData } = data;
 
   return (
-    <div className="w-full lg:w-1/2 bg-mainBg p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300 select-none [&_*]:outline-none">
+    <div className="w-full lg:w-1/2 bg-#fff p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300 select-none [&_*]:outline-none">
       <div>
         {/* 헤더 영역 */}
         <div className="flex justify-between items-center mb-4 border-b border-slate-700 pb-3">
