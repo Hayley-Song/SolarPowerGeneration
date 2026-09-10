@@ -318,7 +318,6 @@ const CustomTooltip = ({ active, payload, label, initialExpense }) => {
 function SelectedYearWindow({ data }) {
   const { selectedYear, setSelectedYear, selectedYearData } = data;
 
-  console.log('selectedYearWindow 호출됨');
   return (
     <div className="w-full lg:w-1/2 bg-mainBg p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300">
       <div>
