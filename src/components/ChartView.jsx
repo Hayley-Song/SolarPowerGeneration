@@ -29,7 +29,7 @@ export default function ChartView({ data }) {
       {/* 요약 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <StatCard title="초기 투자 비용" value={formatKoreanWon(initialExpense)} cardIcon={moneyIcon} />
-        <StatCard title="예상 투자비용 회수 기간" value={yearResult} icon={calendarIcon} />
+        <StatCard title="예상 투자비용 회수 기간" value={yearResult} cardIcon={calendarIcon} />
       </div>
 
       {/* 상단 탭 전환 버튼 */}
