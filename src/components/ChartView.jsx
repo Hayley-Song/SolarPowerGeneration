@@ -450,7 +450,7 @@ function SelectedYearWindow({ data }) {
 
 function StatCard({ 
   title = "초기 투자 비용", 
-  value = 150000, 
+  value = "입력없음", 
   cardIcon = calendarIcon
 }) {
   return (
