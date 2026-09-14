@@ -82,7 +82,7 @@ function CumulativeView({ data }) {
     <div className="flex gap-4 w-full items-start">
       {/* 메인 차트 영역 (min-w-0 추가로 ResponsiveContainer 반응형 동작 보장) */}
       <div
-        className={`bg-#fff p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
+        className={`bg-white p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
           selectedYear ? 'w-full lg:w-2/3' : 'w-full'
         }`}
       >
@@ -182,7 +182,7 @@ function YearlyView({ data }) {
     <div className="flex gap-4 w-full items-start">
       {/* 메인 차트 영역 (min-w-0 추가로 ResponsiveContainer 반응형 동작 보장) */}
       <div
-        className={`bg-#fff p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
+        className={`bg-white p-6 rounded-2xl border shadow-2xl h-[400px] transition-all duration-300 min-w-0 select-none [&_*]:outline-none ${
           selectedYear ? 'w-full lg:w-2/3' : 'w-full'
         }`}
       >
