@@ -13,6 +13,7 @@ import {
 } from 'recharts';
 import { formatKoreanWon } from '../utils/calculators';
 import React, { useState } from 'react';
+import calendarIcon from '../assets/calendar.svg'; 
 
 export default function ChartView({ data }) {
   const { chartData, initialExpense, cumulativeProfit } = data;
@@ -26,14 +27,7 @@ export default function ChartView({ data }) {
     <section className="lg:col-span-2 flex flex-col gap-6 sticky top-6 h-fit">
       {/* 요약 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-primary p-5 rounded-2xl border">
-          <p className="text-xs mainText uppercase tracking-wider mb-1">
-            초기투자비용
-          </p>
-          <p className="text-2xl font-black text-mainText">
-            {formatKoreanWon(initialExpense)}
-          </p>
-        </div>
+        <statCard title="초기투자비용" value=formatKoreanWon(initialExpense) icon=calendarIcon />
         <div className="bg-primary p-5 rounded-2xl border">
           <p className="text-xs mainText uppercase tracking-wider mb-1">
             예상 투자비용 회수 기간
@@ -452,4 +446,36 @@ function SelectedYearWindow({ data }) {
       </p>
     </div>
     );
+}
+
+function StatCard({ 
+  title = "초기 투자 비용", 
+  value = 150000, 
+  cardIcon = calendarIcon
+}) {
+  return (
+    <div className="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all">
+      {/* 1. 왼쪽 아이콘 영역 (관공서 느낌의 옅은 블루/슬레이트 배경 박스) */}
+      <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-100 shrink-0">
+        <img 
+          src={cardIcon} 
+          alt={title} 
+          className="w-6 h-6 object-contain"
+        />
+      </div>
+
+      {/* 2. 오른쪽 텍스트 & 지표 영역 */}
+      <div className="flex flex-col min-w-0">
+        <span className="text-xm font-semibold text-mainText tracking-tight">
+          {title}
+        </span>
+        
+        <div className="flex items-baseline gap-1 mt-0.5">
+          <span className="text-xm font-bold text-mainText tracking-tight">
+            {value}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
 }
