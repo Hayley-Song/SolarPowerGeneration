@@ -105,7 +105,6 @@ function App() {
         aria-hidden="true"
         className="absolute -right-8 -bottom-10 w-44 h-44 md:w-56 md:h-56 object-contain opacity-20 pointer-events-none select-none transform rotate-12"
       />
-
       <div className="relative z-10 flex items-center justify-between gap-6">
         {/* 왼쪽 내용 영역 */}
         <div className="flex items-center gap-4 md:gap-5">
@@ -117,26 +116,16 @@ function App() {
               className="w-full h-full object-contain filter drop-shadow"
             />
           </div>
-
           {/* 중앙 텍스트 */}
-          <div className="flex flex-col">
-            {agencyName && (
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-medium w-fit mb-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                한국에너지공단
-              </div>
-            )}
-            
+          <div className="flex flex-col">            
             <h1 className="text-xl md:text-2xl font-extrabold tracking-tight text-white drop-shadow-sm">
               햇빛소득마을 수익 시뮬레이터
             </h1>
-
             <p className="text-xs md:text-sm text-slate-300 mt-1 font-normal opacity-90 break-keep">
               햇빛소득마을의 20년간 수익을 시뮬레이팅합니다.
             </p>
           </div>
         </div>
-
       </div>
     </header>
 
