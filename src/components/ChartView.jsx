@@ -27,7 +27,7 @@ export default function ChartView({ data }) {
     <section className="lg:col-span-2 flex flex-col gap-6 sticky top-6 h-fit">
       {/* 요약 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <statCard title="초기투자비용" value={formatKoreanWon(initialExpense)} icon={calendarIcon} />
+        <StatCard title="초기투자비용" value={formatKoreanWon(initialExpense)} icon={calendarIcon} />
         <div className="bg-primary p-5 rounded-2xl border">
           <p className="text-xs mainText uppercase tracking-wider mb-1">
             예상 투자비용 회수 기간
