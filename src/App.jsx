@@ -95,44 +95,52 @@ function App() {
   const cumulativeProfit = chartData[chartData.length - 1].cumProfit; // 20년 후 누적 수익액
 
   return (
-    <div className="min-h-screen max-w-7xl bg-mainBg text-mainText p-6 md:p-12">
-      <header className="relative overflow-hidden w-full rounded-2xl bg-gradient-to-br from-primary via-#ffdd00 to-primary text-white p-6 md:p-8 shadow-xl border mb-8">
+    // 1. 최상단은 전체 화면 배경(bg-mainBg, min-h-screen)을 담당하도록 분리
+<div className="min-h-screen bg-mainBg text-mainText p-6 md:p-12">
+  
+  {/* 2. mx-auto를 추가하여 전체 컨테이너를 화면 중앙 정렬 */}
+  <div className="max-w-7xl mx-auto">
+    
+    {/* 헤더 영역 */}
+    <header className="relative overflow-hidden w-full rounded-2xl bg-gradient-to-br from-primary via-[#ffdd00] to-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
       
-      {/* 💡 [우측 모서리 걸침 아이콘] - absolute 배치로 모서리에 일부 잘려나가도록 위치 조정 */}
+      {/* 💡 [좌측 모서리 걸침 아이콘] */}
       <img
         src={leftIcon}
         alt=""
         aria-hidden="true"
-        className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain opacity-85 pointer-events-none select-none transform rotate-12"
+        className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain opacity-85 pointer-events-none select-none transform -rotate-12"
       />
+
+      {/* 💡 [우측 모서리 걸침 아이콘] */}
       <img
         src={rightIcon}
         alt=""
         aria-hidden="true"
         className="absolute -right-8 -bottom-10 w-44 h-44 md:w-56 md:h-56 object-contain opacity-85 pointer-events-none select-none transform rotate-12"
       />
-      <div className="relative z-10 flex items-center justify-between gap-6">
-        {/* 왼쪽 내용 영역 */}
-        <div className="flex items-center gap-4 md:gap-5">
-          {/* 중앙 텍스트 */}
-          <div className="flex flex-col">            
-            <h1 className="text-xl md:text-2xl font-extrabold tracking-tight text-white drop-shadow-sm">
-              햇빛소득마을 수익 시뮬레이터
-            </h1>
-            <p className="text-xs md:text-sm text-slate-300 mt-1 font-normal opacity-90 break-keep">
-              햇빛소득마을의 20년간 수익을 시뮬레이팅합니다.
-            </p>
-          </div>
+
+      {/* 헤더 중앙 텍스트 컨텐츠 */}
+      <div className="relative z-10 flex items-center justify-center text-center min-h-[100px]">
+        <div className="flex flex-col items-center">        
+          <h1 className="text-xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-md">
+            햇빛소득마을 수익 시뮬레이터
+          </h1>
+          <p className="text-xs md:text-sm text-slate-100 mt-2 font-normal opacity-90 break-keep max-w-xl">
+            햇빛소득마을의 20년간 수익을 시뮬레이팅합니다.
+          </p>
         </div>
       </div>
     </header>
 
-      {/* 대시보드 메인 레이아웃 */}
-      <main className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <InputView data={ inputProps } />
-        <ChartView data={{ chartData, initialExpense, cumulativeProfit }} />
-      </main>
-    </div>
+    {/* 대시보드 메인 레이아웃 */}
+    <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <InputView data={inputProps} />
+      <ChartView data={{ chartData, initialExpense, cumulativeProfit }} />
+    </main>
+
+  </div>
+</div>
   );
 }
 
