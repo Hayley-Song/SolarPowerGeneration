@@ -102,14 +102,14 @@ function App() {
   <div className="max-w-7xl mx-auto">
     
     {/* 헤더 영역 */}
-    <header className="relative overflow-hidden w-full rounded-2xl bg-gradient-to-br from-primary via-[#ffdd00] to-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
+    <header className="relative overflow-hidden w-full rounded-2xl bg-gradient-to-br from-primary via-[#ffcd45] to-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
       
       {/* 💡 [좌측 모서리 걸침 아이콘] */}
       <img
         src={leftIcon}
         alt=""
         aria-hidden="true"
-        className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain opacity-85 pointer-events-none select-none transform -rotate-12"
+        className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform -rotate-12"
       />
 
       {/* 💡 [우측 모서리 걸침 아이콘] */}
@@ -117,7 +117,7 @@ function App() {
         src={rightIcon}
         alt=""
         aria-hidden="true"
-        className="absolute -right-8 -bottom-10 w-44 h-44 md:w-56 md:h-56 object-contain opacity-85 pointer-events-none select-none transform rotate-12"
+        className="absolute -right-8 -bottom-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform rotate-12"
       />
 
       {/* 헤더 중앙 텍스트 컨텐츠 */}
@@ -126,7 +126,7 @@ function App() {
           <h1 className="text-xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-md">
             햇빛소득마을 수익 시뮬레이터
           </h1>
-          <p className="text-xs md:text-sm text-slate-100 mt-2 font-normal opacity-90 break-keep max-w-xl">
+          <p className="text-xs md:text-sm text-white mt-2 font-normal opacity-90 break-keep max-w-xl">
             햇빛소득마을의 20년간 수익을 시뮬레이팅합니다.
           </p>
         </div>
