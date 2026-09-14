@@ -456,13 +456,11 @@ function StatCard({
   return (
 <div className="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all">
   {/* 1. 왼쪽 아이콘 영역 */}
-  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-100 shrink-0">
-    <img 
-      src={cardIcon} 
-      alt={title} 
-      className="w-6 h-6 object-contain"
-    />
-  </div>
+  <img 
+    src={cardIcon} 
+    alt={title} 
+    className="w-5 h-5 mt-0.5 flex-shrink-0 opacity-70" 
+  />
 
   {/* 2. 오른쪽 텍스트 & 지표 영역 */}
   <div className="flex flex-col min-w-0 justify-center">
