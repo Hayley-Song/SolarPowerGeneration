@@ -454,19 +454,27 @@ function StatCard({
   cardIcon = calendarIcon
 }) {
   return (
-    <div className="flex items-start gap-3.5 p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
-      {/* 💡 배경 박스 없이 자연스럽게 배치된 아이콘 */}
-      <img 
-        src={cardIcon} 
-        alt="" 
-        className="w-5 h-5 mt-0.5 flex-shrink-0 opacity-70" 
-      />
-      <p className="text-xs mainText uppercase tracking-wider mb-1">
-        {title}
-      </p>
-      <p className="text-2xl font-black text-mainText">
+<div className="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all">
+  {/* 1. 왼쪽 아이콘 영역 */}
+  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-100 shrink-0">
+    <img 
+      src={cardIcon} 
+      alt={title} 
+      className="w-6 h-6 object-contain"
+    />
+  </div>
+
+  {/* 2. 오른쪽 텍스트 & 지표 영역 */}
+  <div className="flex flex-col min-w-0 justify-center">
+    <span className="text-xs mainText uppercase tracking-wider mb-1">
+      {title}
+    </span>
+    <div className="flex items-baseline gap-1 mt-0.5">
+      <span className="text-2xl font-black text-mainText">
         {value}
-      </p>
+      </span>
     </div>
+  </div>
+</div>
   );
 }
