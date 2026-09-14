@@ -451,7 +451,7 @@ function StatCard({ title, value, cardIcon }) {
   <img 
     src={cardIcon} 
     alt={title} 
-    className="w-auto h-2/3 mt-0.5 flex-shrink-0 opacity object-contain" 
+    className="w-12 h-12 mt-0.5 flex-shrink-0 opacity object-contain" 
   />
 
   {/* 2. 오른쪽 텍스트 & 지표 영역 */}
