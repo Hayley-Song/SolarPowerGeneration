@@ -28,8 +28,8 @@ export default function ChartView({ data }) {
     <section className="lg:col-span-2 flex flex-col gap-6 sticky top-6 h-fit">
       {/* 요약 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <StatCard title="초기 투자 비용" value={formatKoreanWon(initialExpense)} icon={moneyIcon} />
-        <StatCard title="예상 투자비용 회수 기간" value={yearResult} icon={calendarIcon} />
+        <StatCard title="초기 투자 비용" value={formatKoreanWon(initialExpense)} icon={{moneyIcon}} />
+        <StatCard title="예상 투자비용 회수 기간" value={yearResult} icon={{calendarIcon}} />
       </div>
 
       {/* 상단 탭 전환 버튼 */}
