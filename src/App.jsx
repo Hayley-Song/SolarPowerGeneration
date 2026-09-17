@@ -102,7 +102,7 @@ function App() {
   <div className="max-w-7xl mx-auto">
     
     {/* 헤더 영역 */}
-    <header className="relative overflow-hidden w-full rounded-2xl bg-gradient-to-br from-white via-primary to-white text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
+    <header className="relative overflow-hidden w-full rounded-2xl bg-gradient-to-br from-white via-primary to-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
       
       {/* 💡 [좌측 모서리 걸침 아이콘] */}
       <img
