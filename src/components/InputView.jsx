@@ -124,7 +124,7 @@ export default function InputView({ data }) {
             value={region}
             onChange={(e) => {
               setRegion(e.target.value);
-              setDaylightHours(e.target.value == Cal.daylightDict[e.target.value]);
+              setDaylightHours(Cal.daylightDict[e.target.value]);
             }}
             title="일조량 반영을 위해 사용되는 옵션입니다."
             className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
