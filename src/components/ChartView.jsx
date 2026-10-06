@@ -14,7 +14,8 @@ import {
 import { formatKoreanWon } from '../utils/calculators';
 import React, { useState } from 'react';
 import moneyIcon from '../assets/money.svg'; 
-import calendarIcon from '../assets/calendar.svg'; 
+import calendarIcon from '../assets/calendar.svg';
+import { InfoTooltip } from './InfoTooltip';
 
 export default function ChartView({ data }) {
   const { chartData, initialExpense, cumulativeProfit } = data;
@@ -309,7 +310,8 @@ function SelectedYearWindow({ data }) {
   const { selectedYear, setSelectedYear, selectedYearData } = data;
 
   return (
-    <div className="w-full lg:w-1/2 bg-#fff p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300">
+    // 💡 bg-#fff 오타 수정 -> bg-white
+    <div className="w-full lg:w-1/2 bg-white p-6 rounded-2xl border shadow-2xl flex flex-col justify-between transition-all duration-300">
       <div>
         {/* 헤더 영역 */}
         <div className="flex justify-between items-center mb-4 border-b border-slate-700 pb-3">
@@ -329,15 +331,21 @@ function SelectedYearWindow({ data }) {
         <div className="overflow-x-auto select-none [&_*]:outline-none">
           <table className="w-full text-sm text-left text-textMain">
             <tbody className="text-textMain">
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 text-textMain font-bold">
-                  발전 수익
+                  <div className="inline-flex items-center">
+                    <span>발전 수익</span>
+                    <InfoTooltip 
+                      text="(SMP+REC×가중치)×설비용량 값으로 계산" 
+                      position="bottom" 
+                    />
+                  </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain font-semibold">
                   {selectedYearData.generationRevenue?.toLocaleString()}원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 text-textMain font-bold">
                   운영 비용
                 </td>
@@ -346,19 +354,24 @@ function SelectedYearWindow({ data }) {
                   원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 pl-6 text-textMain">
-                  전기안전관리비
+                  {/* 💡 inline-flex로 텍스트와 툴팁 아이콘 세로 중앙 맞춤 */}
+                  <div className="inline-flex items-center">
+                    <span>전기안전관리비</span>
+                    <InfoTooltip text="전기안전공사 전기안전관리대행 수수료 기준" />
+                  </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain">
-                  {(
-                    selectedYearData.maintenanceCostA || 0
-                  ).toLocaleString()}
-                  원
+                  {(selectedYearData.maintenanceCostA || 0).toLocaleString()} 원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
-                <td className="py-1.5 px-3 pl-6 text-textMain">보험료</td>
+              <tr className="hover:bg-slate-500/20">
+                <td className="py-1.5 px-3 pl-6 text-textMain">
+                  <div className="inline-flex items-center">
+                    <span>보험료</span>
+                    <InfoTooltip text="연간 설비가액의 0.5% 값으로 계산" />
+                  </div></td>
                 <td className="py-1.5 px-3 text-right text-textMain">
                   {(
                     selectedYearData.maintenanceCostB || 0
@@ -366,7 +379,7 @@ function SelectedYearWindow({ data }) {
                   원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 pl-6 text-textMain">
                   유지관리 비용
                 </td>
@@ -377,9 +390,12 @@ function SelectedYearWindow({ data }) {
                   원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 pl-6 text-textMain">
-                  인버터 교체비용
+                  <div className="inline-flex items-center">
+                    <span>인버터 교체비용</span>
+                    <InfoTooltip text="10년 주기 설비가액의 7% 값으로 계산" />
+                  </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain">
                   {(
@@ -388,7 +404,7 @@ function SelectedYearWindow({ data }) {
                   원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 text-textMain font-bold">
                   대출 상환
                 </td>
@@ -402,7 +418,7 @@ function SelectedYearWindow({ data }) {
                   원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 pl-6 text-textMain">
                   원금 상환
                 </td>
@@ -414,7 +430,7 @@ function SelectedYearWindow({ data }) {
                   원
                 </td>
               </tr>
-              <tr className="hover:bg-slate-800/20">
+              <tr className="hover:bg-slate-500/20">
                 <td className="py-1.5 px-3 pl-6 text-textMain">
                   이자 비용
                 </td>
