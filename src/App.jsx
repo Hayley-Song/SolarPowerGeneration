@@ -9,8 +9,8 @@ function App() {
   // 1. 입력 변수 상태(State) 선언
   const [solarCapacity, setSolarCapacity] = useState(300); // 태양광 발전 설비 용량 (기본 300kW)
   const [landCost, setLandCost] = useState(0); // 부지매입비 (기본 0원)
-  const [region, setRegion] = useState('서울경기');
-  const [daylightHours, setDaylightHours] = useState(3.5); // 일조 시간 (기본 3.5시간)
+  const [region, setRegion] = useState('경상북도');
+  const [daylightHours, setDaylightHours] = useState(Cal.daylightDict['경상북도']); // 일조 시간 (기본 3.5시간)
   const [installType, setInstallType] = useState('일반부지'); // 설치 유형 (기본 일반부지)
   const [recWeight, setRecWeight] = useState(1.2); // REC 가중치 (기본 1.2)
   const [SMP, setSMP] = useState(120);
