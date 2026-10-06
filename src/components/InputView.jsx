@@ -147,9 +147,9 @@ export default function InputView({ data }) {
           <div className="relative">
             <input
               type="number"
-              step="0.1"
-              min="2.0"
-              max="5.0"
+              step="0.01"
+              min="3.0"
+              max="4.0"
               value={daylightHours}
               onChange={(e) => setDaylightHours(Number(e.target.value))}
               className="w-full bg-mainBg border rounded-xl px-4 py-2.5 text-mainText focus:outline-none focus:border-mainText cursor-pointer font-medium transition-all"
