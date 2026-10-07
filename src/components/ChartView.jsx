@@ -366,7 +366,7 @@ function SelectedYearWindow({ data }) {
                   {/* 💡 inline-flex로 텍스트와 툴팁 아이콘 세로 중앙 맞춤 */}
                   <div className="inline-flex items-center">
                     <span>전기안전관리비</span>
-                    <InfoTooltip text="※ 한국전기안전공사 전기안전관리대행 수수료 기준(기준연도: 2026년)을 적용하여 산정" />
+                    <InfoTooltip text="※ 한국전기안전공사 전기안전관리대행 수수료 기준(기준연도: 2026년)을 적용" />
                   </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain">
@@ -401,7 +401,7 @@ function SelectedYearWindow({ data }) {
                 <td className="py-1.5 px-3 pl-6 text-textMain">
                   <div className="inline-flex items-center">
                     <span>인버터 교체비용</span>
-                    <InfoTooltip text="※ 설비가액의 7%를 적용하며, 10년마다 발생" />
+                    <InfoTooltip text="※ 설비가액의 7%를 적용, 10년마다 발생" />
                   </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain">
