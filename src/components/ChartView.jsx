@@ -336,7 +336,7 @@ function SelectedYearWindow({ data }) {
                   <div className="inline-flex items-center">
                     <span>발전 수익</span>
                     <InfoTooltip 
-                      text="(SMP+REC×가중치)×설비용량 값으로 계산" 
+                      text="※ (SMP + REC × REC가중치) × 설비용량(kW) × 일평균 발전시간(h/일) × 365일" 
                       position="bottom" 
                     />
                   </div>
@@ -359,7 +359,7 @@ function SelectedYearWindow({ data }) {
                   {/* 💡 inline-flex로 텍스트와 툴팁 아이콘 세로 중앙 맞춤 */}
                   <div className="inline-flex items-center">
                     <span>전기안전관리비</span>
-                    <InfoTooltip text="전기안전공사 전기안전관리대행 수수료 기준" />
+                    <InfoTooltip text="※ 한국전기안전공사 전기안전관리대행 수수료 기준(기준연도: 2026년)을 적용하여 산정" />
                   </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain">
@@ -370,7 +370,7 @@ function SelectedYearWindow({ data }) {
                 <td className="py-1.5 px-3 pl-6 text-textMain">
                   <div className="inline-flex items-center">
                     <span>보험료</span>
-                    <InfoTooltip text="연간 설비가액의 0.5% 값으로 계산" />
+                    <InfoTooltip text="※ 설비가액의 0.5%를 적용" />
                   </div></td>
                 <td className="py-1.5 px-3 text-right text-textMain">
                   {(
@@ -394,7 +394,7 @@ function SelectedYearWindow({ data }) {
                 <td className="py-1.5 px-3 pl-6 text-textMain">
                   <div className="inline-flex items-center">
                     <span>인버터 교체비용</span>
-                    <InfoTooltip text="10년 주기 설비가액의 7% 값으로 계산" />
+                    <InfoTooltip text="※ 설비가액의 7%를 적용하며, 10년마다 발생" />
                   </div>
                 </td>
                 <td className="py-1.5 px-3 text-right text-textMain">
@@ -454,7 +454,9 @@ function SelectedYearWindow({ data }) {
       </div>
   
       <p className="text-xs text-slate-500 text-center mt-2">
-        * 예상값 어쩌구 책임 안 짐 어쩌구
+        ※ 본 시뮬레이터는 입력된 설비용량, 발전량 및 발전사업 관련 단가 등의 가정값을 바탕으로 태양광 발전사업의 예상 수익과 비용을 산출하는 참고용 계산 도구입니다.
+        ※ 시뮬레이터에 적용되는 각 단가, 발전시간, 운영비율, REC 가중치 등은 실제 사업조건 및 시장상황에 따라 달라질 수 있으며, 해당 값이 실제 거래가격이나 실제 발생 비용을 의미하는 것은 아닙니다.
+        ※ 세금, 금융비용, 보험료, 임대료, 계통연계 관련 비용, 각종 인허가 비용 등은 시뮬레이터의 산출조건에 따라 일부 또는 전부 반영되지 않을 수 있습니다.
       </p>
     </div>
     );
