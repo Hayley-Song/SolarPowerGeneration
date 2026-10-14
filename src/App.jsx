@@ -8,6 +8,7 @@ import rightIcon from './assets/rightIcon.svg';
 function App() {
   // 1. 입력 변수 상태(State) 선언
   const [solarCapacity, setSolarCapacity] = useState(300); // 태양광 발전 설비 용량 (기본 300kW)
+  const [additionalExpense, setAdditionalExpense] = useState(0); // 기타 비용(기본 0원)
   const [landCost, setLandCost] = useState(0); // 부지매입비 (기본 0원)
   const [region, setRegion] = useState('경상북도');
   const [daylightHours, setDaylightHours] = useState(Cal.daylightDict['경상북도']); // 일조 시간 (기본 3.5시간)
@@ -34,6 +35,7 @@ function App() {
   const inputProps = {
     initialExpense,
     solarCapacity,
+    additionalExpense,
     landCost,
     region,
     daylightHours,
@@ -50,6 +52,7 @@ function App() {
     loanPeriodB,
     showAdditional,
     setSolarCapacity,
+    setAdditionalExpense,
     setLandCost,
     setRegion,
     setDaylightHours,
