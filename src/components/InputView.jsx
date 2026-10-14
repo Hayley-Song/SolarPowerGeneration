@@ -5,6 +5,7 @@ export default function InputView({ data }) {
   const {
     initialExpense,
     solarCapacity,
+    additionalExpense,
     landCost,
     region,
     daylightHours,
@@ -21,6 +22,7 @@ export default function InputView({ data }) {
     loanPeriodB,
     showAdditional,
     setSolarCapacity,
+    setAdditionalExpense,
     setLandCost,
     setRegion,
     setDaylightHours,
@@ -95,6 +97,24 @@ export default function InputView({ data }) {
           step="10"
           value={solarCapacity}
           onChange={(e) => setSolarCapacity(Number(e.target.value))}
+          className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
+        />
+      </div>
+
+      <div>
+        <div className="flex justify-between text-sm mb-2">
+          <span className="text-mainText">기타 비용</span>
+          <span className="font-bold mainText">
+            {((additionalExpense / 10000) ?? 0).toLocaleString()}만 원
+          </span>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="100000000"
+          step="5000000"
+          value={landCost}
+          onChange={(e) => setAdditionalExpense(Number(e.target.value))}
           className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
         />
       </div>
