@@ -26,7 +26,7 @@ function App() {
   const [repaymentPlanB, setRepaymentPlanB] = useState('원리금균등');
   const [loanPeriodB, setLoanPeriodB] = useState(0);
 
-  const initialExpense = Cal.estimateCost(solarCapacity, installType) + landCost;
+  const initialExpense = Cal.estimateCost(solarCapacity, installType) + additionalExpense + landCost;
   let loanA = initialExpense * (loanRatio / 100);
 
   // const [viewMode, setViewMode] = useState('chart');
