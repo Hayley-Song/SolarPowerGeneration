@@ -113,7 +113,7 @@ export default function InputView({ data }) {
           min="0"
           max="100000000"
           step="5000000"
-          value={landCost}
+          value={additionalExpense}
           onChange={(e) => setAdditionalExpense(Number(e.target.value))}
           className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
         />
