@@ -107,7 +107,7 @@ function App() {
     {/* 헤더 영역 */}
     <header className="relative overflow-hidden w-full rounded-2xl bg-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
       
-      {/* 💡 [좌측 모서리 걸침 아이콘] */}
+      {/* 좌측 모서리 걸침 아이콘 */}
       <img
         src={leftIcon}
         alt=""
@@ -115,7 +115,7 @@ function App() {
         className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform -rotate-12"
       />
 
-      {/* 💡 [우측 모서리 걸침 아이콘] */}
+      {/* 우측 모서리 걸침 아이콘 */}
       <img
         src={rightIcon}
         alt=""
