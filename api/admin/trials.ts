@@ -4,7 +4,7 @@ import type {
 } from "@vercel/node";
 
 import { randomBytes } from "node:crypto";
-import { getRedis, tokenKey } from "../../lib/trials";
+import { getRedis, tokenKey } from "../../lib/trials.js";
 
 function parseBody(
   body: unknown
