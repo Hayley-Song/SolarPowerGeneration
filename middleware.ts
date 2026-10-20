@@ -1,19 +1,10 @@
 
-import { next, rewrite } from "@vercel/functions";
-import { getActiveTrial } from "./lib/trials";
+import { rewrite } from "@vercel/functions";
 
 export const config = {
   runtime: "nodejs",
+  matcher: ["/", "/index.html", "/trial/:path*"],
 };
-
-// randomBytes(32).toString("base64url")로 생성한
-// 43자리 토큰만 허용합니다.
-const TRIAL_PATH = /^\/trial\/([A-Za-z0-9_-]{43})\/?$/;
-
-// Vite 정적 리소스는 페이지 접근 제어와 분리합니다.
-// .html은 의도적으로 제외하여 /index.html 직접 접속을 차단합니다.
-const STATIC_ASSET_PATH =
-  /\.(?:avif|css|eot|gif|ico|jpe?g|js|json|mjs|otf|png|svg|ttf|wasm|webmanifest|webp|woff2?)$/i;
 
 function denyAccess(
   status = 404,
@@ -34,37 +25,29 @@ export default async function middleware(
   request: Request
 ): Promise<Response> {
   const url = new URL(request.url);
-  const pathname = url.pathname;
 
-  // 관리자 API는 해당 API 내부에서 인증합니다.
-  // 다른 API 경로는 별도 인증 없이 통과시키지 않습니다.
-  if (/^\/api\/admin\/trials\/?$/.test(pathname)) {
-    return next();
-  }
-
-  if (pathname.startsWith("/api/")) {
+  // 일반 주소와 index.html 직접 접속은 차단합니다.
+  if (
+    url.pathname === "/" ||
+    url.pathname === "/index.html"
+  ) {
     return denyAccess();
   }
 
-  // JS, CSS, 이미지 등의 정적 파일은 정상적으로 제공합니다.
-  // 단, index.html과 같은 HTML 파일은 여기에 포함되지 않습니다.
-  if (STATIC_ASSET_PATH.test(pathname)) {
-    return next();
-  }
-
-  // 유효한 형식의 임시 URL인지 확인합니다.
-  const match = pathname.match(TRIAL_PATH);
+  const match = url.pathname.match(
+    /^\/trial\/([A-Za-z0-9_-]{43})\/?$/
+  );
 
   if (!match) {
     return denyAccess();
   }
 
-  const token = match[1];
-
   try {
-    const trial = await getActiveTrial(token);
+    // 실제 임시 URL을 검사할 때만 Redis 관련 코드를 로드합니다.
+    const { getActiveTrial } = await import("./lib/trials");
 
-    // 등록되지 않았거나 아직 시작 전이거나 만료된 URL
+    const trial = await getActiveTrial(match[1]);
+
     if (!trial) {
       return denyAccess(
         403,
@@ -72,13 +55,11 @@ export default async function middleware(
       );
     }
 
-    // 주소창의 임시 URL은 유지하면서 React 앱을 제공합니다.
-    // 쿼리 문자열은 전달하지 않습니다.
+    // 유효한 URL에서만 React 앱을 제공합니다.
     return rewrite(new URL("/index.html", request.url));
   } catch (error) {
     console.error("Trial access verification failed:", error);
 
-    // Redis 장애 시 접근을 허용하지 않습니다.
     return denyAccess(
       503,
       "접근 권한 확인에 실패했습니다. 잠시 후 다시 시도하세요."

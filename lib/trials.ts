@@ -1,4 +1,3 @@
-
 import { Redis } from "@upstash/redis";
 import { createHash } from "node:crypto";
 
@@ -8,13 +7,10 @@ export type TrialRecord = {
   endAt: string;
 };
 
-// Redis 클라이언트는 필요할 때 생성합니다.
 let redisClient: Redis | undefined;
 
 export function getRedis(): Redis {
-  if (redisClient) {
-    return redisClient;
-  }
+  if (redisClient) return redisClient;
 
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
@@ -27,7 +23,6 @@ export function getRedis(): Redis {
   return redisClient;
 }
 
-// 원본 토큰 대신 해시를 Redis 키로 사용합니다.
 export function tokenKey(token: string): string {
   const hash = createHash("sha256")
     .update(token)
@@ -36,15 +31,12 @@ export function tokenKey(token: string): string {
   return `trial:${hash}`;
 }
 
-// 현재 시각 기준으로 유효한 업체 권한을 조회합니다.
 export async function getActiveTrial(
   token: string
 ): Promise<TrialRecord | null> {
   const raw = await getRedis().get<unknown>(tokenKey(token));
 
-  if (!raw || typeof raw !== "object") {
-    return null;
-  }
+  if (!raw || typeof raw !== "object") return null;
 
   const record = raw as Partial<TrialRecord>;
 

@@ -1,4 +1,3 @@
-
 import type {
   VercelRequest,
   VercelResponse,
@@ -43,13 +42,11 @@ export default async function handler(
 ) {
   res.setHeader("Cache-Control", "no-store");
 
-  // 관리자 인증
   const adminSecret = process.env.ADMIN_SECRET;
-  const authorization = req.headers.authorization;
 
   if (
     !adminSecret ||
-    authorization !== `Bearer ${adminSecret}`
+    req.headers.authorization !== `Bearer ${adminSecret}`
   ) {
     return res.status(401).json({
       error: "관리자 인증에 실패했습니다.",
@@ -60,7 +57,6 @@ export default async function handler(
     const redis = getRedis();
     const body = parseBody(req.body);
 
-    // POST: 업체별 임시 URL 발급
     if (req.method === "POST") {
       if (!body) {
         return res.status(400).json({
@@ -73,31 +69,25 @@ export default async function handler(
           ? body.company.trim()
           : "";
 
-      const startAtInput =
-        typeof body.startAt === "string"
-          ? body.startAt
-          : "";
+      const startInput =
+        typeof body.startAt === "string" ? body.startAt : "";
 
-      const endAtInput =
-        typeof body.endAt === "string"
-          ? body.endAt
-          : "";
+      const endInput =
+        typeof body.endAt === "string" ? body.endAt : "";
 
-      // 날짜는 반드시 시간대가 포함된 ISO 형식으로 입력합니다.
       if (
         !company ||
         company.length > 120 ||
-        !hasTimezone(startAtInput) ||
-        !hasTimezone(endAtInput)
+        !hasTimezone(startInput) ||
+        !hasTimezone(endInput)
       ) {
         return res.status(400).json({
-          error:
-            "업체명과 시간대가 포함된 시작일·종료일을 입력하세요.",
+          error: "업체명과 시간대가 포함된 날짜를 입력하세요.",
         });
       }
 
-      const startMs = Date.parse(startAtInput);
-      const endMs = Date.parse(endAtInput);
+      const startMs = Date.parse(startInput);
+      const endMs = Date.parse(endInput);
       const now = Date.now();
 
       if (
@@ -129,7 +119,6 @@ export default async function handler(
         });
       }
 
-      // 실제 서비스의 HTTPS 주소만 사용합니다.
       if (
         origin.protocol !== "https:" ||
         origin.pathname !== "/" ||
@@ -139,32 +128,23 @@ export default async function handler(
         origin.password
       ) {
         return res.status(500).json({
-          error:
-            "APP_ORIGIN에는 경로가 없는 HTTPS 서비스 주소를 입력하세요.",
+          error: "APP_ORIGIN에는 경로가 없는 HTTPS 주소를 입력하세요.",
         });
       }
 
-      // 32바이트의 암호학적으로 안전한 난수 토큰
       const token = randomBytes(32).toString("base64url");
 
       const startAt = new Date(startMs).toISOString();
       const endAt = new Date(endMs).toISOString();
 
-      // 종료 시각까지 Redis 데이터 유지
       const ttlSeconds = Math.ceil(
-        (endMs - now) / 1000
+        (endMs - Date.now()) / 1000
       );
 
       await redis.set(
         tokenKey(token),
-        {
-          company,
-          startAt,
-          endAt,
-        },
-        {
-          ex: ttlSeconds,
-        }
+        { company, startAt, endAt },
+        { ex: ttlSeconds }
       );
 
       return res.status(201).json({
@@ -175,17 +155,13 @@ export default async function handler(
       });
     }
 
-    // DELETE: 기존 임시 URL의 권한 취소
     if (req.method === "DELETE") {
       const token =
-        typeof body?.token === "string"
-          ? body.token
-          : "";
+        typeof body?.token === "string" ? body.token : "";
 
-      // 토큰 형식 검증
       if (!/^[A-Za-z0-9_-]{43}$/.test(token)) {
         return res.status(400).json({
-          error: "유효한 임시 URL 토큰이 필요합니다.",
+          error: "유효한 URL 토큰이 필요합니다.",
         });
       }
 
