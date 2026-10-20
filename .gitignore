@@ -1,0 +1,10 @@
+
+# Local dependencies and build output
+node_modules/
+dist/
+.vercel/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
