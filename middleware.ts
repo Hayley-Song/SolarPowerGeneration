@@ -1,5 +1,5 @@
-
 import { rewrite } from "@vercel/functions";
+import { getActiveTrial } from "./lib/trials.js";
 
 export const config = {
   runtime: "nodejs",
@@ -43,8 +43,6 @@ export default async function middleware(
   }
 
   try {
-    // 실제 임시 URL을 검사할 때만 Redis 관련 코드를 로드합니다.
-    const { getActiveTrial } = await import("./lib/trials.js");
 
     const trial = await getActiveTrial(match[1]);
 
