@@ -93,7 +93,7 @@ export default function InputView({ data }) {
         <input
           type="range"
           min="50"
-          max="1000"
+          max="4000"
           step="10"
           value={solarCapacity}
           onChange={(e) => setSolarCapacity(Number(e.target.value))}
@@ -111,7 +111,7 @@ export default function InputView({ data }) {
         <input
           type="range"
           min="0"
-          max="100000000"
+          max="1000000000"
           step="5000000"
           value={additionalExpense}
           onChange={(e) => setAdditionalExpense(Number(e.target.value))}
