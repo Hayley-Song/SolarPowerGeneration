@@ -1,3 +1,5 @@
+> 통합 패키지의 설치·배포는 README.md를 우선 따르세요. 아래는 이전 기능별 개발 당시의 참고 문서입니다.
+
 # PDF 리포트 개선 안내
 
 기준: `SolarPowerGeneration_vworld.zip` (브이월드 주소 연동 버전)
@@ -18,7 +20,7 @@
 기존 프로젝트와 같은 방법으로 실행합니다. Node.js는 Vite 8이 지원하는 버전(예: Node 22.12 이상)을 사용하세요.
 
 ```powershell
-pnpm install --frozen-lockfile
+pnpm install --no-frozen-lockfile
 pnpm dev
 ```
 

@@ -1,3 +1,5 @@
+> 통합 패키지의 설치·배포는 README.md를 우선 따르세요. 아래는 이전 기능별 개발 당시의 참고 문서입니다.
+
 # 햇빛소득마을 수익 시뮬레이터 — 주소 연동 버전
 
 원본 SolarPowerGeneration-local(1).zip의 React/Vite 프로젝트를 수정했습니다. 카카오맵 및 별도 지도 라이브러리는 사용하지 않습니다.
@@ -28,7 +30,7 @@
 기존 프로젝트를 먼저 백업하고, 압축을 풀어 해당 프로젝트 폴더에서 실행합니다. 원본과 동일한 pnpm lockfile을 유지했으며 새로운 npm 라이브러리를 추가하지 않았습니다. node_modules는 OS별 바이너리가 포함되므로 배포 패키지에서 제외했습니다.
 
 ```powershell
-pnpm install --frozen-lockfile
+pnpm install --no-frozen-lockfile
 Copy-Item .env.example .env.local
 notepad .env.local
 ```
@@ -56,7 +58,7 @@ pnpm build
 
 ## 4. Vercel 반영
 
-- 기존 Git 저장소에 적용할 경우 새 테스트 브랜치를 만들어 다음 파일을 복사/추가합니다: `src/components/InputView.jsx`, `src/components/SiteAreaLookup.jsx`, `src/utils/siteArea.js`, `api/site-area.js`, `server/siteArea.js`, `vite.config.js`, `vercel.json`, `.env.example`, `tests/site-area.test.js`, `package.json`, `.gitignore`, 이 문서. 이미 운영 저장소에 별도 API·접근 제어·환경변수·vercel.json 설정이 있다면 해당 기존 파일을 덮어쓰지 말고 병합하세요. 업로드된 로컬 원본에는 접근제어 파일이 없었습니다.
+- 기존 Git 저장소에 적용할 경우 새 테스트 브랜치를 만들어 다음 파일을 복사/추가합니다: `src/components/InputView.jsx`, `src/components/SiteAreaLookup.jsx`, `src/utils/siteArea.js`, `api/site-area.ts`, `server/siteArea.js`, `vite.config.js`, `vercel.json`, `.env.example`, `tests/site-area.test.js`, `package.json`, `.gitignore`, 이 문서. 이미 운영 저장소에 별도 API·접근 제어·환경변수·vercel.json 설정이 있다면 해당 기존 파일을 덮어쓰지 말고 병합하세요. 업로드된 로컬 원본에는 접근제어 파일이 없었습니다.
 - Vercel 프로젝트 Settings → Environment Variables에 `VWORLD_API_KEY`, `VITE_VWORLD_MAP_KEY`, 필요한 경우 `VWORLD_DOMAIN` 등록. 서버 키는 절대 `VITE_` 접두어를 붙이지 않습니다.
 - 테스트 브랜치 Preview 환경에 환경변수를 설정하고 배포해 조회 후, Production에도 등록하고 재배포합니다. Vite 공개 환경변수는 빌드 시 반영됩니다.
 - 지도 타일은 브라우저가 브이월드에서 직접 불러오며 Vercel API는 JSON 공간정보만 전달합니다. 지도 조회 패널을 열거나 주소를 입력하는 것만으로 외부 API를 호출하지 않고 조회 버튼을 눌렀을 때 호출합니다. 영구 캐시/저장 기능은 포함하지 않았습니다.
