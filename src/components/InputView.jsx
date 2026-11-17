@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as Cal from '../utils/calculators.js';
+import SiteAreaLookup from './SiteAreaLookup.jsx';
 
 export default function InputView({ data }) {
   const {
@@ -40,11 +41,24 @@ export default function InputView({ data }) {
     setShowAdditional,
   } = data;
 
+  const [showSiteArea, setShowSiteArea] = useState(false);
+  const applySite = ({capacity, region, installType}) => {
+    setSolarCapacity(capacity);
+    setRegion(region);
+    setDaylightHours(Cal.daylightDict[region]);
+    setInstallType(installType);
+    setRecWeight(installType === '건축물' ? 1.5 : 1.2);
+    // 기존 추가 대출이 변경된 자기자본을 초과하지 않도록 제한
+    setLoanB(Math.min(loanB, Math.max(0, (Cal.estimateCost(capacity, installType)+landCost)*(100-loanRatio)/100)));
+  };
+
   return (
     <section className="bg-cardBg p-6 rounded-2xl border shadow-2xl flex flex-col gap-6">
-      <h2 className="text-lg font-bold mainText border-b pb-3 mb-2">
-        변수 설정
-      </h2>
+      <div className="flex items-center justify-between gap-2 border-b pb-3 mb-2">
+        <h2 className="text-lg font-bold mainText">변수 설정</h2>
+        <button type="button" aria-expanded={showSiteArea} aria-controls="site-area-panel" onClick={() => setShowSiteArea(v => !v)} className="px-3 py-1.5 rounded-lg bg-mainBg border border-stone-300 text-xs font-bold text-mainText hover:bg-stone-200">주소로 입력 {showSiteArea ? '▲' : '▼'}</button>
+      </div>
+      {showSiteArea && <SiteAreaLookup onApply={applySite} />}
 
       {/* SMP, REC */}
       {/* 💡 입력창 2개를 나란히 세우는 컨테이너 */}
@@ -92,9 +106,9 @@ export default function InputView({ data }) {
         </div>
         <input
           type="range"
-          min="50"
-          max="1000"
-          step="10"
+          min={Math.min(50, solarCapacity)}
+          max={Math.max(1000, solarCapacity)}
+          step="1"
           value={solarCapacity}
           onChange={(e) => setSolarCapacity(Number(e.target.value))}
           className="w-full h-2 bg-subcolor rounded-lg appearance-none cursor-pointer accent-primary"
@@ -331,10 +345,10 @@ export default function InputView({ data }) {
             />
           </div>
 
-          <div className="flex bg-stone-100 p-1 rounded-lg">
+          <div className="grid grid-cols-3 bg-stone-100 p-1 rounded-lg">
             <button
               onClick={() => setRepaymentPlanB('원리금균등')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
+              className={`py-1.5 text-sm font-medium rounded-md transition-all text-center ${
                 repaymentPlanB === '원리금균등'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-stone-600 hover:text-stone-900'
@@ -344,7 +358,7 @@ export default function InputView({ data }) {
             </button>
             <button
               onClick={() => setRepaymentPlanB('원금균등')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
+              className={`py-1.5 text-sm font-medium rounded-md transition-all text-center ${
                 repaymentPlanB === '원금균등'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-stone-600 hover:text-stone-900'
@@ -354,7 +368,7 @@ export default function InputView({ data }) {
             </button>
             <button
               onClick={() => setRepaymentPlanB('만기일시')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
+              className={`py-1.5 text-sm font-medium rounded-md transition-all text-center ${
                 repaymentPlanB === '만기일시'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-stone-600 hover:text-stone-900'

@@ -4,21 +4,20 @@ import ChartView from './components/ChartView';
 import InputView from './components/InputView';
 import leftIcon from './assets/leftIcon.svg';
 import rightIcon from './assets/rightIcon.svg';
+import FeaturedCard from './components/FeaturedCard.jsx';
 
 function App() {
-  // 1. 입력 변수 상태(State) 선언
-  const [solarCapacity, setSolarCapacity] = useState(300); // 태양광 발전 설비 용량 (기본 300kW)
-  const [additionalExpense, setAdditionalExpense] = useState(0); // 기타 비용(기본 0원)
-  const [landCost, setLandCost] = useState(0); // 부지매입비 (기본 0원)
+  const [additionalExpense, setAdditionalExpense] = useState(0); 
+  const [solarCapacity, setSolarCapacity] = useState(300); 
+  const [landCost, setLandCost] = useState(0); 
   const [region, setRegion] = useState('경상북도');
-  const [daylightHours, setDaylightHours] = useState(Cal.daylightDict['경상북도']); // 일조 시간 (기본 3.5시간)
-  const [installType, setInstallType] = useState('일반부지'); // 설치 유형 (기본 일반부지)
-  const [recWeight, setRecWeight] = useState(1.2); // REC 가중치 (기본 1.2)
+  const [daylightHours, setDaylightHours] = useState(3.46); 
+  const [installType, setInstallType] = useState('일반부지'); 
+  const [recWeight, setRecWeight] = useState(1.2); 
   const [SMP, setSMP] = useState(120);
   const [REC, setREC] = useState(72);
   const [loanRatio, setLoanRatio] = useState(85);
 
-  // const [loanA, setLoanA] = useState(0);
   const [interestRateA, setInterestRateA] = useState(3.75);
   const [repaymentPlanA, setRepaymentPlanA] = useState('5년거치10년분할');
   const [loanB, setLoanB] = useState(0);
@@ -26,16 +25,15 @@ function App() {
   const [repaymentPlanB, setRepaymentPlanB] = useState('원리금균등');
   const [loanPeriodB, setLoanPeriodB] = useState(0);
 
-  const initialExpense = Cal.estimateCost(solarCapacity, installType) + additionalExpense + landCost;
+  const initialExpense = Cal.estimateCost(solarCapacity, installType) + landCost;
   let loanA = initialExpense * (loanRatio / 100);
 
-  // const [viewMode, setViewMode] = useState('chart');
   const [showAdditional, setShowAdditional] = useState('닫기');
 
   const inputProps = {
     initialExpense,
-    solarCapacity,
     additionalExpense,
+    solarCapacity,
     landCost,
     region,
     daylightHours,
@@ -51,8 +49,8 @@ function App() {
     repaymentPlanB,
     loanPeriodB,
     showAdditional,
-    setSolarCapacity,
     setAdditionalExpense,
+    setSolarCapacity,
     setLandCost,
     setRegion,
     setDaylightHours,
@@ -68,6 +66,25 @@ function App() {
     setRepaymentPlanB,
     setLoanPeriodB,
     setShowAdditional,
+  };
+
+  const inputProps_export = {
+    additionalExpense,
+    solarCapacity,
+    landCost,
+    region,
+    daylightHours,
+    installType,
+    recWeight,
+    SMP,
+    REC,
+    loanRatio,
+    interestRateA,
+    repaymentPlanA,
+    loanB,
+    interestRateB,
+    repaymentPlanB,
+    loanPeriodB
   };
 
   let data = Cal.mergedData(
@@ -94,56 +111,72 @@ function App() {
     };
   });
 
+  const yearResult =
+    data
+      .find((range) => initialExpense <= range.cumProfit)
+      ?.year.slice(0, -1) ?? '수익실현불가';
+
   const chartData = data;
-  const cumulativeProfit = chartData[chartData.length - 1].cumProfit; // 20년 후 누적 수익액
+
+  const cumulativeProfit = chartData[chartData.length - 1].cumProfit
 
   return (
-    // 1. 최상단은 전체 화면 배경(bg-mainBg, min-h-screen)을 담당하도록 분리
-<div className="min-h-screen bg-mainBg text-mainText p-6 md:p-12">
-  
-  {/* 2. mx-auto를 추가하여 전체 컨테이너를 화면 중앙 정렬 */}
-  <div className="max-w-7xl mx-auto">
-    
-    {/* 헤더 영역 */}
-    <header className="relative overflow-hidden w-full rounded-2xl bg-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
-      
-      {/* 좌측 모서리 걸침 아이콘 */}
-      <img
-        src={leftIcon}
-        alt=""
-        aria-hidden="true"
-        className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform -rotate-12"
-      />
+    <div className="min-h-screen bg-mainBg text-mainText p-6 md:p-12 pb-28 lg:pb-12">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* 헤더 영역 */}
+        <header className="relative overflow-hidden w-full rounded-2xl bg-primary text-white p-6 md:p-8 shadow-xl border border-white/10 mb-8">
+          <img
+            src={leftIcon}
+            alt=""
+            aria-hidden="true"
+            className="absolute -left-8 -top-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform -rotate-12"
+          />
+          <img
+            src={rightIcon}
+            alt=""
+            aria-hidden="true"
+            className="absolute -right-8 -bottom-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform rotate-12"
+          />
+          <div className="relative z-10 flex items-center justify-center text-center min-h-[100px]">
+            <div className="flex flex-col items-center">       
+              <h1 className="text-xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-md">
+                햇빛소득마을 수익 시뮬레이터
+              </h1>
+              <p className="text-xs md:text-sm text-white mt-2 font-normal opacity-90 break-keep max-w-xl">
+                햇빛소득마을의 20년간 수익을 시뮬레이팅합니다.
+              </p>
+            </div>
+          </div>
+        </header>
 
-      {/* 우측 모서리 걸침 아이콘 */}
-      <img
-        src={rightIcon}
-        alt=""
-        aria-hidden="true"
-        className="absolute -right-8 -bottom-10 w-44 h-44 md:w-56 md:h-56 object-contain pointer-events-none select-none transform rotate-12"
-      />
+        {/* 대시보드 메인 레이아웃 */}
+        <main className="grid grid-cols-1 lg:grid-cols-3 items-start gap-6">
+          
+          {/* A 영역 (입력 폼): 스크롤 시 정상적으로 움직임 */}
+          <div className="order-1 lg:order-1 lg:col-span-1">
+            <InputView data={inputProps} />
+          </div>
 
-      {/* 헤더 중앙 텍스트 컨텐츠 */}
-      <div className="relative z-10 flex items-center justify-center text-center min-h-[100px]">
-        <div className="flex flex-col items-center">        
-          <h1 className="text-xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-md">
-            햇빛소득마을 수익 시뮬레이터
-          </h1>
-          <p className="text-xs md:text-sm text-white mt-2 font-normal opacity-90 break-keep max-w-xl">
-            햇빛소득마을의 20년간 수익을 시뮬레이팅합니다.
-          </p>
-        </div>
+          {/* 오른쪽 영역 (B와 C): lg:sticky lg:top-6 추가하여 PC에서 스크롤 시 화면에 고정 */}
+          <div className="order-2 lg:order-2 lg:col-span-2 flex flex-col gap-6 lg:sticky lg:top-6">
+            
+            {/* B 영역: 모바일에서는 하단 고정, PC에서는 오른쪽 상단 */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/90 backdrop-blur-md border-t border-stone-200 shadow-2xl lg:static lg:p-0 lg:bg-transparent lg:backdrop-blur-none lg:border-none lg:shadow-none">
+              <div className="max-w-7xl mx-auto">
+                <FeaturedCard data={{ initialExpense, cumulativeProfit, yearResult }} />
+              </div>
+            </div>
+
+            {/* C 영역: 차트 및 리포트 */}
+            <div>
+              <ChartView data={{ chartData, initialExpense, yearResult, inputProps_export }} />
+            </div>
+
+          </div>
+        </main>
       </div>
-    </header>
-
-    {/* 대시보드 메인 레이아웃 */}
-    <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <InputView data={inputProps} />
-      <ChartView data={{ chartData, initialExpense, cumulativeProfit }} />
-    </main>
-
-  </div>
-</div>
+    </div>
   );
 }
 
