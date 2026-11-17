@@ -1,5 +1,23 @@
 {
   "functions": {
-    "api/site-area.js": { "maxDuration": 45 }
-  }
+    "api/site-area.ts": {
+      "maxDuration": 45
+    }
+  },
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "headers": [
+    {
+      "source": "/trial/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin"
+        }
+      ]
+    }
+  ]
 }

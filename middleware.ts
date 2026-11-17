@@ -54,7 +54,10 @@ export default async function middleware(
     }
 
     // 유효한 URL에서만 React 앱을 제공합니다.
-    return rewrite(new URL("/index.html", request.url));
+    const response = rewrite(new URL("/index.html", request.url));
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("Referrer-Policy", "strict-origin");
+    return response;
   } catch (error) {
     console.error("Trial access verification failed:", error);
 

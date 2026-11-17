@@ -48,7 +48,9 @@ export default function SiteAreaLookup({onApply}) {
     e.preventDefault();if(busy||!address.trim())return;
     setBusy(true);setError('');setSite(null);setSelected('');setApplied('');
     try {
-      const response=await fetch('/api/site-area',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({address:address.trim()})});
+      const token = /^\/trial\/([A-Za-z0-9_-]{43})\/?$/.exec(window.location.pathname)?.[1];
+      const headers={'Content-Type':'application/json', ...(token ? {Authorization:`Bearer ${token}`} : {})};
+      const response=await fetch('/api/site-area',{method:'POST',headers,body:JSON.stringify({address:address.trim()})});
       let result;try{result=await response.json();}catch{throw new Error('주소 조회 API에 연결되지 않았습니다. 개발 서버 또는 Vercel 배포를 확인하세요.');}
       if(!response.ok)throw new Error(result.error||'조회 실패');
       setSite(result);
