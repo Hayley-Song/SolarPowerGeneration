@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 기본 테마 */
+:root {
+  --bg-main: #fafaf9; /* 따뜻한 미색 (stone-50) */
+  --bg-card: #ffffff; /* 새하얀 백색 (white) */
+  --text-main: #1c1917; /* 깊은 브라운 차콜 (stone-900) */
+  --text-muted: #78716c; /* 따뜻한 연회색 (stone-500) */
+  --color-primary: #ffbb00; /* 진하고 선명한 허니 골드 (amber-600) */
+  --color-sub: #fff495; /* 진하고 선명한 허니 골드 (amber-600) */
+
+  /* 그래프 및 경고용 톤온톤 추천 */
+  --color-positive: #16a34a; /* 부드러운 그린 (emerald-600) */
+  --color-negative: #dc2626; /* 부드러운 레드 (red-600) */
+}
+/* 다크 테마 */
+.light {
+  --bg-main: #020617; /* slate-950 */
+  --bg-card: #0f172a; /* slate-900 */
+  --text-main: #f8fafc; /* slate-50 */
+  --text-muted: #94a3b8; /* slate-400 */
+  --color-primary: #10b981; /* emerald-500 */
+}
